@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+
+@tailwind utilities;
+
+@layer components {
+
+  /* ========| Forms |========= */
+  .container {
+    @apply max-w-[90%] mx-auto;
+  }
+
+  /* ========================== */
+
+
+
+
+  /* ========| Forms |========= */
+
+  .form-control {
+    @apply appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3;
+  }
+
+  .form-control[text-area] {
+    @apply block p-2.5 w-full text-sm text-gray-900 rounded-lg shadow-sm border border-gray-300;
+  }
+
+  .btn {
+    @apply bg-[#212121] text-white px-5 py-3 text-center;
+  }
+
+  .btn.outlined {
+    @apply bg-white border border-[#212121] text-[#212121];
+  }
+
+  .btn.rounded {
+    @apply rounded-full;
+  }
+
+  /* ========================== */
+
+  .home::before {
+    /* content: url("./assets/scratch.svg");
+    position: absolute;
+    bottom: -18px; */
+  }
+
+  .active {
+    /* @apply block; */
+    @apply translate-x-0;
+  }
+}
