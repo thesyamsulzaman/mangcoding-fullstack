@@ -21,10 +21,12 @@ Route::group(['namespace'  => 'App\Http\Controllers'], function () {
   Route::get('/', 'HomeController@index')->name('index');
   Route::get('/detail/{id}', 'HomeController@detail')->name('detail');
   Route::get('/shop', 'HomeController@shop')->name('shop');
+  Route::get('/shop/search', 'HomeController@search');
+
+  Route::get('/category-galery', 'HomeController@categories')->name('category-galery');
 
 
   Route::group(['middleware' => ['guest']], function () {
-
     /**
      * Register Routes
      */
@@ -40,9 +42,11 @@ Route::group(['namespace'  => 'App\Http\Controllers'], function () {
 
   Route::group(['middleware' => ['auth']], function () {
     /**
-     * Product Routes
+     * Product And Cateogry Routes
      */
-    Route::resource('products', 'ProductsController')->only(['index', 'store', 'edit', 'update', 'destroy']);
+    Route::resource('products', 'ProductsController')->only(['index', 'store', 'edit', 'update', 'destroy', '']);
+    Route::resource('categories', 'CategoryController')->only(['index', 'store', 'edit', 'update', 'destroy']);
+
 
     /**
      * Admin Routes

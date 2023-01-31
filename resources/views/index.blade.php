@@ -62,40 +62,40 @@
 </section>
 
 <div class="container py-20">
-  <span class="text-yellow-500 text-xl">Post List</span>
+  <span class="text-yellow-500 text-xl">Explore</span>
   <div class="flex justify-between items-center w-full">
     <h3 class="text-5xl font-semibold">Categories</h3>
-    <a href="" class="btn outlined inline-block">See More</a>
+    <a href="/categories" class="btn outlined inline-block">See More</a>
   </div>
 
   <div class="mt-8 flex flex-col space-y-5 lg:flex-row lg:space-x-5 lg:space-y-0">
-    <div class="bg-[#BEDDE2] flex-1 flex space-x-8 relative rounded">
-      <img src="./assets/table.png" class="self-end hidden md:block" alt="">
+
+    @foreach($categories as $category)
+
+    <div class="flex-1 flex space-x-8 relative rounded
+      @if ($loop->first)
+        bg-[#BEDDE2]
+      @endif
+
+      @if ($loop->last)
+        bg-[#DEEFE9]
+      @endif
+    ">
+      <img src="{{ url('/uploads/'.$category->photo) }}" class="self-end hidden md:block" alt="">
 
       <div class="max-w-[387px] space-y-4 py-8">
-        <h3 class="font-bold text-4xl">Ruang Tamu</h3>
-        <p class="text-xl text-gray-500">Terdapat berbagai macam Furniture Ruang Tamu yang dapat anda beli dengan
-          kualitas yang bagus</p>
-        <a href="" class="btn inline-block">Buy Now</a>
+        <h3 class="font-bold text-4xl">{{ $category->name }}</h3>
+        <p class="text-xl text-gray-500">{{ $category->description }}</p>
+        <a href="/shop/search?category={{ $category->name }}" class="btn inline-block">Buy Now</a>
       </div>
     </div>
 
-    <div class="bg-[#DEEFE9] flex-1 flex space-x-8 relative rounded">
-      <img src="./assets/chair.png" class="self-end hidden md:block" alt="">
-
-      <div class="max-w-[387px] space-y-4 py-8">
-        <h3 class="font-bold text-4xl">Ruang Kerja</h3>
-        <p class="text-xl text-gray-500">
-          Terdapat berbagai macam Furniture Ruang Kerja, Seperti Kursi Kantor, Santay, dan lainnya
-        </p>
-        <a href="" class="btn inline-block">Buy Now</a>
-      </div>
-    </div>
+    @endforeach
   </div>
 </div>
 
 <div class="container py-20">
-  <span class="text-yellow-500 text-xl">Post List</span>
+  <span class="text-yellow-500 text-xl">Have a look at</span>
   <div class="flex justify-between items-center w-full">
     <h3 class="text-5xl font-semibold">
       Our Best Seller Product

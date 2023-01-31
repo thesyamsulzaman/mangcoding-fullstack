@@ -7,7 +7,7 @@
     <div class="space-x-4 flex-1 ml-12 hidden md:block">
       <a href="/">Home</a>
       <a href="/shop">Shop</a>
-      <a href="/categories">Categories</a>
+      <a href="/category-galery">Categories</a>
     </div>
 
     <div class="flex items-center space-x-5 hidden md:flex">

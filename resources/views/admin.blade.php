@@ -9,14 +9,72 @@
   <section class="py-1 bg-blueGray-50">
 
     <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4 mx-auto mt-24">
-      <div class="flex items-center justify-end space-x-2">
-        <a href="/products" class="btn mt-5 ml-auto mb-4 inline-block">Add Product</a>
-        <a href="/logout" class="btn !bg-green-500 mt-5 ml-auto mb-4 inline-block">Logout</a>
+      <div class="flex items-center justify-between">
+        <h1 class="text-2xl font-bold">Categories</h1>
+        <div>
+          <a href="/categories" class="btn mt-5 ml-auto mb-4 inline-block">Add Category</a>
+          <a href="/logout" class="btn !bg-green-500 mt-5 ml-auto mb-4 inline-block">Logout</a>
+        </div>
       </div>
 
+      <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
+        <div class="block w-full overflow-x-auto">
+          <table class="items-center bg-transparent w-full border-collapse ">
+            <thead>
+              <tr>
+                <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                  Photo
+                </th>
+                <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                  Product Name
+                </th>
+                <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                  description
+                </th>
+                <th class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                  Action
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              @foreach($categories as $category)
+              <tr>
+                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                  <img width="100" src="{{ url('/uploads/'.$category->photo) }}" alt="">
+                </td>
+                <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
+                  {{ $category->name }}
+                </th>
+                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
+                  {{ $category->description }}
+                </td>
+
+                <td class="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                  <a href="/categories/{{ $category->id }}/edit" class="btn">Edit</a>
+
+                  <form action="categories/{{ $category->id }}" method="post" class="inline-block">
+                    @method('delete')
+                    @csrf
+                    <button onclick="return confirm('Are you sure?');" class="btn bg-red-400">Delete</button>
+                  </form>
+                </td>
+              </tr>
+              @endforeach
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4 mx-auto mt-24">
+      <div class="flex items-center justify-between">
+        <h1 class="text-2xl font-bold">Products</h1>
+        <a href="/products" class="btn mt-5 ml-auto mb-4 inline-block">Add Product</a>
+      </div>
 
       <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
-
         <div class="block w-full overflow-x-auto">
           <table class="items-center bg-transparent w-full border-collapse ">
             <thead>
@@ -40,7 +98,6 @@
             </thead>
 
             <tbody>
-
               @foreach($products as $product)
               <tr>
                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">

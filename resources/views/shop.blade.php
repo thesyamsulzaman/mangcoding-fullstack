@@ -9,15 +9,16 @@
   <div class=" bg-slate-400 absolute inset-x-0 inset-y-0 opacity-80"></div>
   <div class="z-50 w-full text-center">
     <h1 class="text-4xl text-white font-bold mb-5">Find a product of your choice</h1>
-    <div class="flex bg-white h-full items-center space-x-3 w-full mb-4 border border-gray-400 p-4 max-w-[768px] mx-auto rounded-full ">
-      <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="8.36556" cy="8.36458" r="7.03353" stroke="#070D13" stroke-width="2" />
-        <rect x="13.8848" y="13" width="6.56463" height="1.25023" rx="0.625113" transform="rotate(45 13.8848 13)" fill="#070D13" />
-      </svg>
-      <input type="text" class="w-full border-none outline-none" placeholder="Search for Product Name ..." />
-    </div>
+    <form action="/shop/search" method="GET">
+      <div class="flex bg-white h-full items-center space-x-3 w-full mb-4 border border-gray-400 p-4 max-w-[768px] mx-auto rounded-full ">
+        <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="8.36556" cy="8.36458" r="7.03353" stroke="#070D13" stroke-width="2" />
+          <rect x="13.8848" y="13" width="6.56463" height="1.25023" rx="0.625113" transform="rotate(45 13.8848 13)" fill="#070D13" />
+        </svg>
+        <input type="text" class="w-full border-none outline-none" name="search" placeholder="Search for Product Name ..." />
+      </div>
+    </form>
   </div>
-
 </section>
 
 <section class="container pt-10 pb-20 mt-3 mb-10">
@@ -40,7 +41,6 @@
       </div>
     </div>
     @endforeach
-
   </div>
 </section>
 

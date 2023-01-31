@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\Products;
-use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
-class ProductsController extends Controller
+class CategoryController extends Controller
 {
   /**
    * Display a listing of the resource.
@@ -16,9 +15,7 @@ class ProductsController extends Controller
    */
   public function index()
   {
-    return view("products.create", [
-      'categories' => Category::all()
-    ]);
+    return view("categories.create");
   }
 
   /**
@@ -42,7 +39,6 @@ class ProductsController extends Controller
     $request->validate([
       'photo' => 'required|file|image|mimes:jpeg,png,jpg',
       'name' => 'required|string',
-      'price' => 'required',
       'description' => 'required',
     ]);
 
@@ -54,16 +50,11 @@ class ProductsController extends Controller
 
     $validated = [
       'name' => $request->input('name'),
-      'price' => $request->input('price'),
       'description' => $request->input('description'),
       'photo' => $file_name,
-      'trait' => $request->input("trait"),
-      'category_id' => $request->input('category_id'),
-      'rate' => $request->input("rate"),
-      'featured' => false
     ];
 
-    $request->user()->products()->create($validated);
+    Category::create($validated);
 
     return redirect(route('admin'));
   }
@@ -71,10 +62,10 @@ class ProductsController extends Controller
   /**
    * Display the specified resource.
    *
-   * @param  \App\Models\Products  $products
+   * @param  \App\Models\Category  $category
    * @return \Illuminate\Http\Response
    */
-  public function show(Products $products)
+  public function show(Category $category)
   {
     //
   }
@@ -82,57 +73,38 @@ class ProductsController extends Controller
   /**
    * Show the form for editing the specified resource.
    *
-   * @param  \App\Models\Products  $products
+   * @param  \App\Models\Category  $category
    * @return \Illuminate\Http\Response
    */
-  public function edit(Products $product)
+  public function edit(Category $category)
   {
-    return view('products.edit', [
-      'product' => $product,
-      'categories' => Category::all()
+    return view('categories.edit', [
+      'category' => $category,
     ]);
   }
-
-
-  // public function toggle_featured(Request $request, Products $product)
-  // {
-  //   $isFeatured = $product->featured;
-  //   $product->update(
-  //     ['featured' => !$isFeatured]
-  //   );
-
-  //   return redirect(route('admin'));
-  // }
-
 
   /**
    * Update the specified resource in storage.
    *
    * @param  \Illuminate\Http\Request  $request
-   * @param  \App\Models\Products  $products
+   * @param  \App\Models\Category  $category
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, Products $product)
+  public function update(Request $request, Category $category)
   {
     $request->validate([
       'name' => 'required|string',
-      'price' => 'required',
       'description' => 'required',
       'photo' => 'sometimes|file|image|mimes:jpeg,png,jpg'
     ]);
 
     $validated = [
       'name' => $request->input('name'),
-      'price' => $request->input('price'),
       'description' => $request->input('description'),
-      'trait' => $request->input("trait"),
-      'category_id' => $request->input('category_id'),
-      'rate' => $request->input("rate"),
-      'featured' => false
     ];
 
     if ($request->hasFile('photo')) {
-      File::delete('uploads/' . $product->photo);
+      File::delete('uploads/' . $category->photo);
       $file = $request->file('photo');
       $file_name = time() . "_" . $file->getClientOriginalName();
 
@@ -141,7 +113,7 @@ class ProductsController extends Controller
       $validated["photo"] = $file_name;
     }
 
-    $product->update($validated);
+    $category->update($validated);
 
     return redirect(route('admin'));
   }
@@ -149,13 +121,13 @@ class ProductsController extends Controller
   /**
    * Remove the specified resource from storage.
    *
-   * @param  \App\Models\Products  $products
+   * @param  \App\Models\Category  $category
    * @return \Illuminate\Http\Response
    */
-  public function destroy(Products $product)
+  public function destroy(Category $category)
   {
-    File::delete('uploads/' . $product->photo);
-    Products::destroy($product->id);
+    File::delete('uploads/' . $category->photo);
+    Category::destroy($category->id);
     return redirect("admin");
   }
 }
